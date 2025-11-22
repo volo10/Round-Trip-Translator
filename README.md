@@ -40,7 +40,10 @@ pip install sentence-transformers matplotlib pytest
 # 2. Run the experiment (mock mode - no API key needed)
 python scripts/run_experiment.py --mock
 
-# 3. Run tests
+# 3. Or test with your own text
+python scripts/run_experiment.py --mock --text "Your sentence here"
+
+# 4. Run tests
 pytest tests/ -v
 ```
 
@@ -178,11 +181,19 @@ python scripts/run_experiment.py --mock
 python scripts/run_experiment.py --sentences-only
 ```
 
+### Custom Text Input
+
+```bash
+# Test with your own text
+python scripts/run_experiment.py --mock --text "Your custom sentence here with many words to test"
+```
+
 ### Command Line Options
 
 | Option | Description |
 |--------|-------------|
 | `--mock` | Use mock translations (no API calls) |
+| `--text "TEXT"` | Use custom text instead of default sentences |
 | `--sentences-only` | Display test sentences without running experiment |
 | `--api-key KEY` | Provide API key directly |
 | `--output-dir DIR` | Specify output directory |
@@ -338,8 +349,18 @@ Output: `spelling_error_graph_TIMESTAMP.png`
 
 All Python code is in the `scripts/` directory:
 - `run_experiment.py` - Main experiment runner
-- `spelling_error_injector.py` - Spelling error injection
+- `spelling_error_injector.py` - Spelling error injection (also runnable standalone)
 - `embedding_similarity_local.py` - Embedding and similarity
+
+#### Standalone Scripts
+
+```bash
+# Test spelling error injection with custom text
+python scripts/spelling_error_injector.py "Your text here to test spelling errors"
+
+# Run with default demo text
+python scripts/spelling_error_injector.py
+```
 
 ---
 

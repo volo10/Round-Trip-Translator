@@ -5,11 +5,15 @@ Spelling Error Injector for Translation Quality Experiments
 This module provides functions to inject spelling errors into English text
 at various error rates (0% to 50%) for testing translation pipeline robustness.
 
-Usage:
+Usage (as module):
     from spelling_error_injector import SpellingErrorInjector
 
     injector = SpellingErrorInjector(seed=42)
     misspelled = injector.inject_errors("Hello world", error_rate=0.25)
+
+Usage (command line):
+    python spelling_error_injector.py "Your text here"  # Test custom text
+    python spelling_error_injector.py                   # Run with demo text
 """
 
 import random
@@ -243,11 +247,17 @@ class SpellingErrorInjector:
 
 def main():
     """Demo the spelling error injector."""
-    test_sentence = ("The quick brown fox jumps over the lazy dog while the "
-                    "beautiful sunset paints the sky with vibrant colors of orange and pink")
+    import sys
+
+    # Check if custom text was provided as argument
+    if len(sys.argv) > 1:
+        test_sentence = ' '.join(sys.argv[1:])
+    else:
+        test_sentence = ("The quick brown fox jumps over the lazy dog while the "
+                        "beautiful sunset paints the sky with vibrant colors of orange and pink")
 
     print("=" * 70)
-    print("SPELLING ERROR INJECTOR DEMO")
+    print("SPELLING ERROR INJECTOR")
     print("=" * 70)
     print(f"\nOriginal ({len(test_sentence.split())} words):")
     print(f"  {test_sentence}")

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(tree:*)",
       "Bash(git show:*)",
-      "Bash(python -m pytest:*)"
+      "Bash(python -m pytest:*)",
+      "Bash(python scripts/run_experiment.py:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

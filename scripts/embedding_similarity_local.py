@@ -50,7 +50,7 @@ class LocalEmbeddingSimilarityChecker:
         self.input_embedding = None
         self.output_embedding = None
         self.similarity_score = None
-        print("✓ Model loaded successfully\n")
+        print("Model loaded successfully\n")
 
     def get_embedding(self, text: str) -> List[float]:
         """
@@ -114,11 +114,11 @@ class LocalEmbeddingSimilarityChecker:
 
         # Get embeddings
         print("Generating embeddings...")
-        print("  ⏳ Embedding input sentence...")
+        print("  Embedding input sentence...")
         self.input_embedding = self.get_embedding(input_sentence)
-        print(f"  ✓ Input embedding generated ({len(self.input_embedding)} dimensions)")
+        print(f"  Input embedding generated ({len(self.input_embedding)} dimensions)")
 
-        print("  ⏳ Embedding output sentence...")
+        print("  Embedding output sentence...")
         self.output_embedding = self.get_embedding(output_sentence)
         print(f"  ✓ Output embedding generated ({len(self.output_embedding)} dimensions)")
 

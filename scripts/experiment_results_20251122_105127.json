@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-11-22T10:51:27.100976",
+  "test_sentences": [
+    "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine"
+  ],
+  "sentence_lengths": [
+    14
+  ],
+  "error_rates": [
+    0.0,
+    0.1,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "results": [
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "The quick brown fox jumps over the lazy dog in the beautiful morning sunshine",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Le quick brown fox jumps over le lunzy dog in le beunutiful matin sunshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "The quick brown fox jumps over the lazy dog in the meautiful morning sunshine",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.07142857142857142,
+      "french_translation": "Le quick brown fox jumps over le lunzy dog in le meunutiful matin sunshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "The quick brown fox jumps over the lazy dog in the beautiful morning synshine",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.07142857142857142,
+      "french_translation": "Le quick brown fox jumps over le lunzy dog in le beunutiful matin synshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "Jhe quick brown fox jumps over the lazy dog in thee beautiful morning sunshine",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.14285714285714285,
+      "french_translation": "Jhe quick brown fox jumps over le lunzy dog in lee beunutiful matin sunshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "Ths quick brown fox jumps over the lazy dgo in the beautiful morning sunshine",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.14285714285714285,
+      "french_translation": "Ths quick brown fox jumps over le lunzy dgo in le beunutiful matin sunshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "Tghe quick bcrown fox jumps voer thte lazy dog in the beautiful morning sunshinbe",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.35714285714285715,
+      "french_translation": "Tghe quick bcrown fox jumps voer thte lunzy dog in le beunutiful matin sunshinbe",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    },
+    {
+      "original_sentence": "The quick brown fox jumps over the lazy dog in the beautiful\n  morning sunshine",
+      "input_with_errors": "The quiick brown fox jumps over thd laazy sog in ghe beautiful morninl sunshine",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.42857142857142855,
+      "french_translation": "Le quiick brown fox jumps over thd lununzy sog in ghe beunutiful morninl sunshine",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.3019031725220728,
+      "vector_distance": 0.6980968274779271
+    }
+  ],
+  "summary": {
+    "total_runs": 7,
+    "by_error_rate": {
+      "0%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "10%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "20%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "25%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "30%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "40%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      },
+      "50%": {
+        "count": 1,
+        "avg_distance": 0.6980968274779271,
+        "avg_similarity": 0.3019031725220728,
+        "min_distance": 0.6980968274779271,
+        "max_distance": 0.6980968274779271
+      }
+    }
+  }
+}

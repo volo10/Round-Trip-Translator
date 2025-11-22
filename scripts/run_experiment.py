@@ -5,7 +5,7 @@ Translation Quality Experiment Runner
 This script runs the full translation experiment:
 1. Takes test sentences with 15+ words
 2. Injects spelling errors at various rates (0% - 50%)
-3. Runs each variant through the translation pipeline (EN → FR → HE → EN)
+3. Runs each variant through the translation pipeline (EN -> FR -> HE -> EN)
 4. Measures vector distance between original and final translation
 5. Generates a graph of spelling error % vs vector distance
 
@@ -16,6 +16,7 @@ Usage:
     python run_experiment.py                    # Run full experiment
     python run_experiment.py --mock             # Run with mock translations (no API)
     python run_experiment.py --sentences-only   # Just show test sentences
+    python run_experiment.py --mock --text "Your custom text here"  # Test custom text
 """
 
 import os
@@ -70,10 +71,24 @@ TEST_SENTENCES = [
     "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
 ]
 
-# Verify sentence lengths
+# Verify sentence lengths (only for default test sentences)
 for i, s in enumerate(TEST_SENTENCES):
     word_count = len(s.split())
     assert word_count >= 15, f"Sentence {i+1} has only {word_count} words (need 15+)"
+
+
+def validate_sentences(sentences: List[str], strict: bool = False) -> List[str]:
+    """Validate sentences and optionally enforce 15-word minimum."""
+    validated = []
+    for i, s in enumerate(sentences):
+        word_count = len(s.split())
+        if word_count < 15:
+            if strict:
+                raise ValueError(f"Sentence {i+1} has only {word_count} words (need 15+)")
+            else:
+                print(f"Warning: Sentence {i+1} has only {word_count} words (recommended: 15+)")
+        validated.append(s)
+    return validated
 
 
 # ============================================================================
@@ -124,17 +139,16 @@ def mock_translate(text: str, source_lang: str, target_lang: str) -> str:
     """
     Mock translation for testing without API.
 
-    This simulates translation by making minor modifications to demonstrate
-    the pipeline flow. In production, use translate_with_claude().
+    This simulates translation by making word-by-word replacements.
+    Misspelled words won't match the dictionary and will pass through unchanged,
+    causing degradation in the final output (simulating real translation behavior).
     """
-    # Simple mock that preserves most meaning
-    # In reality, this would be actual translation
-
     if source_lang == "English" and target_lang == "French":
-        # Simulate EN -> FR
+        # EN -> FR: Word-by-word replacement
+        # Misspelled words won't match and pass through unchanged
         replacements = {
-            "The": "Le", "the": "le", "a": "un", "is": "est",
-            "beautiful": "magnifique", "sunset": "coucher de soleil",
+            "the": "le", "a": "un", "is": "est", "are": "sont",
+            "beautiful": "magnifique", "sunset": "coucher-de-soleil",
             "morning": "matin", "student": "étudiant", "walks": "marche",
             "park": "parc", "university": "université", "campus": "campus",
             "golden": "doré", "sky": "ciel", "colors": "couleurs",
@@ -142,25 +156,85 @@ def mock_translate(text: str, source_lang: str, target_lang: str) -> str:
             "deep": "profond", "young": "jeune", "peaceful": "paisible",
             "dedicated": "dévoué", "entire": "entier", "western": "occidental",
             "painted": "peint", "shades": "nuances", "magnificent": "magnifique",
-            "through": "à travers", "reach": "atteindre", "her": "sa",
-            "Every": "Chaque", "time": "temps", "on": "à"
+            "through": "à-travers", "reach": "atteindre", "her": "sa",
+            "every": "chaque", "time": "temps", "on": "à", "to": "pour",
+            "with": "avec", "and": "et", "of": "de",
         }
-        result = text
-        for eng, fr in replacements.items():
-            result = result.replace(eng, fr)
-        return result
+        words = text.split()
+        result = []
+        for word in words:
+            # Strip punctuation for lookup
+            clean = word.strip('.,!?;:').lower()
+            punct = word[len(word.rstrip('.,!?;:')):]
+            if clean in replacements:
+                result.append(replacements[clean] + punct)
+            else:
+                # Word not found (possibly misspelled) - passes through unchanged
+                result.append(word)
+        return ' '.join(result)
 
     elif source_lang == "French" and target_lang == "Hebrew":
-        # Simulate FR -> HE (just return mock Hebrew-like result)
-        return "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק"
+        # FR -> HE: Word-by-word replacement
+        # Untranslated English words (from misspellings) won't match
+        replacements = {
+            "le": "ה", "la": "ה", "les": "ה", "un": "א", "une": "א",
+            "magnifique": "מרהיב", "coucher-de-soleil": "שקיעה",
+            "matin": "בוקר", "étudiant": "סטודנט", "marche": "הולך",
+            "parc": "פארק", "université": "אוניברסיטה", "campus": "קמפוס",
+            "doré": "מוזהב", "ciel": "שמיים", "couleurs": "צבעים",
+            "orange": "כתום", "rose": "ורוד", "violet": "סגול",
+            "profond": "עמוק", "jeune": "צעיר", "paisible": "שליו",
+            "dévoué": "מסור", "entier": "כל", "occidental": "מערבי",
+            "peint": "צבע", "nuances": "גוונים", "sa": "שלה",
+            "chaque": "כל", "temps": "זמן", "à": "ל", "pour": "כדי",
+            "avec": "עם", "et": "ו", "de": "של", "à-travers": "דרך",
+            "atteindre": "להגיע",
+        }
+        words = text.split()
+        result = []
+        for word in words:
+            clean = word.strip('.,!?;:').lower()
+            punct = word[len(word.rstrip('.,!?;:')):]
+            if clean in replacements:
+                result.append(replacements[clean] + punct)
+            else:
+                # Untranslated word - mark as unknown (simulates translation failure)
+                result.append(f"[{word}]")
+        return ' '.join(result)
 
     elif source_lang == "Hebrew" and target_lang == "English":
-        # Simulate HE -> EN (return slightly modified English)
-        # This simulates the "drift" that occurs through translation
-        if "sunset" in text.lower() or "שקיעה" in text:
-            return "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple."
-        else:
-            return "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time."
+        # HE -> EN: Word-by-word replacement
+        # Words in brackets (untranslated) indicate translation failures
+        replacements = {
+            "ה": "the", "א": "a",
+            "מרהיב": "magnificent", "שקיעה": "sunset",
+            "בוקר": "morning", "סטודנט": "student", "הולך": "walks",
+            "פארק": "park", "אוניברסיטה": "university", "קמפוס": "campus",
+            "מוזהב": "golden", "שמיים": "sky", "צבעים": "colors",
+            "כתום": "orange", "ורוד": "pink", "סגול": "purple",
+            "עמוק": "deep", "צעיר": "young", "שליו": "peaceful",
+            "מסור": "dedicated", "כל": "every", "מערבי": "western",
+            "צבע": "painted", "גוונים": "shades", "שלה": "her",
+            "זמן": "time", "ל": "to", "כדי": "to", "דרך": "through",
+            "עם": "with", "ו": "and", "של": "of", "להגיע": "reach",
+        }
+        words = text.split()
+        result = []
+        for word in words:
+            # Check if it's a bracketed untranslated word [word]
+            if word.startswith('['):
+                # Extract the original untranslated word - this is "damaged" output
+                inner = word.strip('[].,!?;:')
+                punct = word[len(word.rstrip('.,!?;:')):]
+                result.append(f"??{inner}??" + punct)
+            else:
+                clean = word.strip('.,!?;:').lower()
+                punct = word[len(word.rstrip('.,!?;:')):]
+                if clean in replacements:
+                    result.append(replacements[clean] + punct)
+                else:
+                    result.append(word)
+        return ' '.join(result)
 
     return text
 
@@ -168,7 +242,7 @@ def mock_translate(text: str, source_lang: str, target_lang: str) -> str:
 def run_translation_pipeline(text: str, use_mock: bool = False,
                             api_key: Optional[str] = None) -> Tuple[str, str, str]:
     """
-    Run the full translation pipeline: EN → FR → HE → EN
+    Run the full translation pipeline: EN -> FR -> HE -> EN
 
     Args:
         text: English text to translate
@@ -180,13 +254,13 @@ def run_translation_pipeline(text: str, use_mock: bool = False,
     """
     translate = mock_translate if use_mock else lambda t, s, d: translate_with_claude(t, s, d, api_key)
 
-    # Step 1: English → French
+    # Step 1: English -> French
     french = translate(text, "English", "French")
 
-    # Step 2: French → Hebrew
+    # Step 2: French -> Hebrew
     hebrew = translate(french, "French", "Hebrew")
 
-    # Step 3: Hebrew → English
+    # Step 3: Hebrew -> English
     final_english = translate(hebrew, "Hebrew", "English")
 
     return french, hebrew, final_english
@@ -229,7 +303,7 @@ def run_experiment(sentences: List[str] = None,
     if verbose:
         print("\n" + "=" * 70)
         print("TRANSLATION QUALITY EXPERIMENT")
-        print("Pipeline: English → French → Hebrew → English")
+        print("Pipeline: English -> French -> Hebrew -> English")
         print("=" * 70)
         print(f"\nTest sentences: {len(sentences)}")
         print(f"Error rates to test: {[f'{r*100:.0f}%' for r in error_rates]}")
@@ -516,6 +590,8 @@ def main():
                        help='Anthropic API key (or set ANTHROPIC_API_KEY env var)')
     parser.add_argument('--output-dir', type=str, default=None,
                        help='Output directory for results')
+    parser.add_argument('--text', type=str, default=None,
+                       help='Custom text to test (instead of default sentences)')
 
     args = parser.parse_args()
 
@@ -530,9 +606,16 @@ def main():
             print(f"  {sent}")
         return
 
+    # Use custom text if provided
+    sentences = None
+    if args.text:
+        sentences = validate_sentences([args.text], strict=False)
+        print(f"\nUsing custom text ({len(args.text.split())} words): {args.text[:80]}{'...' if len(args.text) > 80 else ''}")
+
     # Run full experiment
     print("\nStarting experiment...")
     experiment = run_experiment(
+        sentences=sentences,
         use_mock=args.mock,
         api_key=args.api_key,
         verbose=True

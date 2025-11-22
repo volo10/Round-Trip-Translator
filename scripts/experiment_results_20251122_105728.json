@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-11-22T10:57:28.127479",
+  "test_sentences": [
+    "Your sentence here"
+  ],
+  "sentence_lengths": [
+    3
+  ],
+  "error_rates": [
+    0.0,
+    0.1,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "results": [
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence here",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Your sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence here",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.0,
+      "french_translation": "Your sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence here",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.0,
+      "french_translation": "Your sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence here",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.0,
+      "french_translation": "Your sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence here",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.0,
+      "french_translation": "Your sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Your sentence mere",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.3333333333333333,
+      "french_translation": "Your sentence mere",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    },
+    {
+      "original_sentence": "Your sentence here",
+      "input_with_errors": "Yur sentence here",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.3333333333333333,
+      "french_translation": "Yur sentence sae",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": -0.01844479147564633,
+      "vector_distance": 1.0184447914756463
+    }
+  ],
+  "summary": {
+    "total_runs": 7,
+    "by_error_rate": {
+      "0%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "10%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "20%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "25%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "30%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "40%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      },
+      "50%": {
+        "count": 1,
+        "avg_distance": 1.0184447914756463,
+        "avg_similarity": -0.01844479147564633,
+        "min_distance": 1.0184447914756463,
+        "max_distance": 1.0184447914756463
+      }
+    }
+  }
+}
