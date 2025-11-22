@@ -195,8 +195,12 @@ class SpellingErrorInjector:
         for i, word in enumerate(words):
             if i in indices_to_modify:
                 modified = self._apply_error(word)
-                modifications.append((word, modified))
-                modified_words.append(modified)
+                # Only record as modification if word actually changed
+                if modified != word:
+                    modifications.append((word, modified))
+                    modified_words.append(modified)
+                else:
+                    modified_words.append(word)
             else:
                 modified_words.append(word)
 

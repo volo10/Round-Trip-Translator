@@ -1,4 +1,4 @@
-# TRANSLATOR_V2 - Multi-Agent Translation Pipeline
+# Round-Trip-Translator - Multi-Agent Translation Pipeline
 # Required dependencies
 
 # Core dependencies

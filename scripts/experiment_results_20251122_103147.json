@@ -1,0 +1,230 @@
+{
+  "timestamp": "2025-11-22T10:31:47.874287",
+  "test_sentences": [
+    "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+    "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time."
+  ],
+  "sentence_lengths": [
+    19,
+    18
+  ],
+  "error_rates": [
+    0.0,
+    0.1,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "results": [
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Le mungnificent doré coucsa de soleil puninted le entier occidental ciel with beunutiful shundes of orunnge, rose, unnd profàd violet couleurs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunsel painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.05263157894736842,
+      "french_translation": "Le mungnificent doré sunsel puninted le entier occidental ciel with beunutiful shundes of orunnge, rose, unnd profàd violet couleurs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset oainted the entire westtern sky with beautiful shades of orange, pink, and deep purple folors.",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.15789473684210525,
+      "french_translation": "Le mungnificent doré coucsa de soleil ouninted le entier westtern ciel with beunutiful shundes of orunnge, rose, unnd profàd violet folors.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset painted the entirs westrn skky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.21052631578947367,
+      "french_translation": "Le mungnificent doré coucsa de soleil puninted le entirs westrn skky with beunutiful shundes of orunnge, rose, unnd profàd violet couleurs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset paited qhe entire western sky with beautiful shades of orange, piqk, and deep purrple colors.",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.2631578947368421,
+      "french_translation": "Le mungnificent doré coucsa de soleil punited qhe entier occidental ciel with beunutiful shundes of orunnge, piqk, unnd profàd purrple couleurs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificenlt golden suunset painted the wntire western eky with beautiful shades of orange, pink, end deep puprle coolrs.",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.3684210526315789,
+      "french_translation": "Le mungnificenlt doré suunset puninted le wntire occidental eky with beunutiful shundes of orunnge, rose, end profàd puprle coolrs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificentt golden suset pained teh entire western sky with beautifuk shqdes of orange, pnk, and deiep pirple colors.",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.47368421052631576,
+      "french_translation": "Le mungnificentt doré suset punined teh entier occidental ciel with beunutifuk shqdes of orunnge, pnk, unnd deiep pirple couleurs.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.9886381639504244,
+      "vector_distance": 0.011361836049575635
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Chaque matin le dedicunted jeune étudiant wunlks à travers le peunceful punrk to reunch sa université cunmpus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walls through the peaceful park to reach her university campus on time.",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.05555555555555555,
+      "french_translation": "Chaque matin le dedicunted jeune étudiant wunlls à travers le peunceful punrk to reunch sa université cunmpus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated youg student walks through the peaceful park to reach her university campuus on time.",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.16666666666666666,
+      "french_translation": "Chaque matin le dedicunted youg étudiant wunlks à travers le peunceful punrk to reunch sa université cunmpuus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walkks through tehe peacefull park to feach her university campus on time.",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.2222222222222222,
+      "french_translation": "Chaque matin le dedicunted jeune étudiant wunlkks à travers tehe peuncefull punrk to feunch sa université cunmpus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning tbe dedicated yourg student walks through the peaceful parkk to reach heer university campus on time.",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.2222222222222222,
+      "french_translation": "Chaque matin tbe dedicunted yourg étudiant wunlks à travers le peunceful punrkk to reunch heer université cunmpus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Evedry mornfing the dedicated young student walks through hte peaceful patk to rreach her university cakpus on time.",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.3333333333333333,
+      "french_translation": "Evedry mornfing le dedicunted jeune étudiant wunlks à travers hte peunceful puntk to rreunch sa université cunkpus à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Eveery morning hte dedicated young stident wlks through the peaceful ppark to reach hev university campes on time.",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.4444444444444444,
+      "french_translation": "Eveery matin hte dedicunted jeune stident wlks à travers le peunceful ppunrk to reunch hev université cunmpes à temps.",
+      "hebrew_translation": "השקיעה המרהיבה צבעה את השמיים המערביים בגוונים יפים של כתום וורוד וסגול עמוק",
+      "final_english": "The magnificent golden sunset painted the western sky with beautiful shades of orange, pink, and deep purple.",
+      "similarity_score": 0.17591923485362745,
+      "vector_distance": 0.8240807651463725
+    }
+  ],
+  "summary": {
+    "total_runs": 14,
+    "by_error_rate": {
+      "0%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "10%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "20%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "25%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "30%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "40%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      },
+      "50%": {
+        "count": 2,
+        "avg_distance": 0.4177213005979741,
+        "avg_similarity": 0.5822786994020259,
+        "min_distance": 0.011361836049575635,
+        "max_distance": 0.8240807651463725
+      }
+    }
+  }
+}

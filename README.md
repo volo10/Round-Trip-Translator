@@ -1,4 +1,4 @@
-# TRANSLATOR_V2 - Multi-Agent Translation Pipeline
+# Round-Trip-Translator - Multi-Agent Translation Pipeline
 
 **Version:** 2.1
 **Last Updated:** November 22, 2025
@@ -55,7 +55,7 @@ pytest tests/ -v
 python --version
 
 # 2. Navigate to project directory
-cd C:\path\to\TRANSLATOR_V2
+cd Round-Trip-Translator
 
 # 3. Create virtual environment (recommended)
 python -m venv venv
@@ -80,7 +80,7 @@ python -c "from sentence_transformers import SentenceTransformer; print('OK')"
 python3 --version
 
 # 2. Navigate to project directory
-cd /path/to/TRANSLATOR_V2
+cd Round-Trip-Translator
 
 # 3. Create virtual environment (recommended)
 python3 -m venv venv
@@ -115,9 +115,11 @@ chmod +x roundtrip_v2.sh
 ## Project Structure
 
 ```
-TRANSLATOR_V2/
+Round-Trip-Translator/
 ├── README.md                    # This documentation
 ├── HW3_eng.pdf                  # Assignment specification
+├── requirements.txt             # Python dependencies
+├── roundtrip_v2.sh              # Shell script for pipeline
 │
 ├── agents/                      # Translation agent definitions
 │   ├── en-fr-translator.md     # Agent 1: English → French
@@ -142,13 +144,11 @@ TRANSLATOR_V2/
 │   ├── spelling_error_injector.py  # Spelling error injection
 │   └── embedding_similarity_local.py  # Vector similarity
 │
-├── tests/                       # Unit tests
-│   ├── conftest.py             # Pytest configuration
-│   ├── test_spelling_error_injector.py
-│   ├── test_embedding_similarity.py
-│   └── test_experiment_runner.py
-│
-└── roundtrip_v2.sh             # Shell script for pipeline
+└── tests/                       # Unit tests
+    ├── conftest.py             # Pytest configuration
+    ├── test_spelling_error_injector.py
+    ├── test_embedding_similarity.py
+    └── test_experiment_runner.py
 ```
 
 ---
