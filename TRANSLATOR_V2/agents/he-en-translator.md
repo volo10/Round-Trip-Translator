@@ -3,7 +3,7 @@ description: Expert Hebrew to English translator specializing in natural English
 skills:
   - word_order_conversion
   - gender_pronoun_mapping
-skills_path: /Users/bvolovelsky/Desktop/LLM/TRANSLATOR_V2/skills/he-en-translator-skills
+skills_path: skills/he-en-translator-skills
 ---
 
 # Hebrew to English Translation Agent

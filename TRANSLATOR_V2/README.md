@@ -1,41 +1,114 @@
-# TRANSLATOR_V2 - Professional Translation Pipeline
+# TRANSLATOR_V2 - Multi-Agent Translation Pipeline
 
-**Version:** 2.0
-**Last Updated:** November 21, 2025
+**Version:** 2.1
+**Last Updated:** November 22, 2025
 **Status:** Production Ready
 
-## Table of Contents
+## Assignment Overview
 
-1. [Overview](#overview)
-2. [Project Structure](#project-structure)
-3. [Quick Start](#quick-start)
-4. [Features](#features)
-5. [Agents](#agents)
-6. [Scripts](#scripts)
-7. [Usage Examples](#usage-examples)
-8. [Quality Assurance](#quality-assurance)
-9. [Architecture](#architecture)
-10. [Troubleshooting](#troubleshooting)
-11. [Performance Benchmarks](#performance-benchmarks)
+This project implements a **Multi-Agent Translation System** with **Vector Distance Analysis** as per the HW3 assignment requirements:
+
+- **Translation Pipeline:** English → French → Hebrew → English
+- **Spelling Error Testing:** 0% to 50% error rates
+- **Vector Distance Measurement:** Cosine similarity using embeddings
+- **Graph Visualization:** Spelling error % vs. vector distance
 
 ---
 
-## Overview
+## Table of Contents
 
-TRANSLATOR_V2 is a professional-grade multilingual translation system that performs round-trip translations across three languages with semantic quality measurement. It translates text through the chain: **English → Spanish → Hebrew → English**, preserving meaning and naturalness at each step.
+1. [Quick Start](#quick-start)
+2. [Installation](#installation)
+   - [Windows](#windows-installation)
+   - [macOS](#macos-installation)
+3. [Project Structure](#project-structure)
+4. [Running the Experiment](#running-the-experiment)
+5. [Test Sentences](#test-sentences)
+6. [Agent Definitions](#agent-definitions)
+7. [Running Tests](#running-tests)
+8. [Assignment Deliverables](#assignment-deliverables)
+9. [Troubleshooting](#troubleshooting)
 
-### Key Innovation
+---
 
-Traditional translation pipelines can suffer from semantic drift through multiple transformations. TRANSLATOR_V2 includes:
-- **Natural Phrasing Preservation**: Prevents awkward literal translations
-- **Semantic Similarity Measurement**: Validates translation quality using embeddings
-- **Proper Agent Format**: Uses YAML frontmatter following Claude Code conventions
+## Quick Start
 
-### Problem Solved
+```bash
+# 1. Install dependencies
+pip install sentence-transformers matplotlib pytest
 
-Original issue: Round-trip translations produced awkward results like "Very much love I to go to the beach with Ben" instead of the natural "I love going to the beach with Ben".
+# 2. Run the experiment (mock mode - no API key needed)
+python scripts/run_experiment.py --mock
 
-**Solution**: Integrated Natural Phrasing Preservation across all three translation stages with semantic similarity validation.
+# 3. Run tests
+pytest tests/ -v
+```
+
+---
+
+## Installation
+
+### Windows Installation
+
+```powershell
+# 1. Ensure Python 3.8+ is installed
+python --version
+
+# 2. Navigate to project directory
+cd C:\path\to\TRANSLATOR_V2
+
+# 3. Create virtual environment (recommended)
+python -m venv venv
+.\venv\Scripts\activate
+
+# 4. Install required packages
+pip install sentence-transformers matplotlib pytest anthropic
+
+# 5. Verify installation
+python -c "from sentence_transformers import SentenceTransformer; print('OK')"
+```
+
+#### Windows Requirements
+- Python 3.8 or higher
+- pip (Python package manager)
+- ~500MB disk space for models (downloaded on first run)
+
+### macOS Installation
+
+```bash
+# 1. Ensure Python 3.8+ is installed
+python3 --version
+
+# 2. Navigate to project directory
+cd /path/to/TRANSLATOR_V2
+
+# 3. Create virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate
+
+# 4. Install required packages
+pip install sentence-transformers matplotlib pytest anthropic
+
+# 5. Verify installation
+python3 -c "from sentence_transformers import SentenceTransformer; print('OK')"
+
+# 6. Make shell script executable (optional)
+chmod +x roundtrip_v2.sh
+```
+
+#### macOS Requirements
+- Python 3.8 or higher (use Homebrew: `brew install python3`)
+- pip (included with Python)
+- ~500MB disk space for models
+
+### Dependencies
+
+| Package | Purpose | Install Command |
+|---------|---------|-----------------|
+| sentence-transformers | Embedding generation | `pip install sentence-transformers` |
+| matplotlib | Graph generation | `pip install matplotlib` |
+| pytest | Unit testing | `pip install pytest` |
+| anthropic | Claude API (optional) | `pip install anthropic` |
 
 ---
 
@@ -43,699 +116,325 @@ Original issue: Round-trip translations produced awkward results like "Very much
 
 ```
 TRANSLATOR_V2/
-├── README.md                           # This file
-├── AGENTS.md                           # Detailed agent documentation
-├── SCRIPTS.md                          # Scripts reference guide
-├── QUICK_REFERENCE.md                  # Quick lookup guide
+├── README.md                    # This documentation
+├── HW3_eng.pdf                  # Assignment specification
 │
-├── agents/                             # Translation agents
-│   ├── en-es-translator.md            # English to Spanish
-│   ├── es-he-translator.md            # Spanish to Hebrew
-│   └── he-en-translator.md            # Hebrew to English
+├── agents/                      # Translation agent definitions
+│   ├── en-fr-translator.md     # Agent 1: English → French
+│   ├── fr-he-translator.md     # Agent 2: French → Hebrew
+│   └── he-en-translator.md     # Agent 3: Hebrew → English
 │
-├── scripts/                            # Quality measurement tools
-│   └── embedding_similarity_local.py   # Semantic similarity checker
+├── skills/                      # Agent skill modules
+│   ├── en-fr-translator-skills/
+│   │   ├── subjunctive_mastery.md
+│   │   ├── partitive_article_usage.md
+│   │   └── natural_phrasing_preservation.md
+│   ├── fr-he-translator-skills/
+│   │   ├── gender_transformation.md
+│   │   ├── binyan_selection.md
+│   │   └── article_system_conversion.md
+│   └── he-en-translator-skills/
+│       ├── word_order_conversion.md
+│       └── gender_pronoun_mapping.md
 │
-└── roundtrip_v2.sh                     # Main translation pipeline
-```
-
-### Directory Details
-
-**agents/** - YAML-formatted translation agents
-- Each agent is 150-200 lines (vs 600-900 in v1)
-- Follows Claude Code conventions
-- Self-contained with key competencies
-- Ready for use with `claude --agents [agent-name]`
-
-**scripts/** - Python tools for validation
-- Semantic similarity measurement
-- Embedding-based quality assessment
-- No API keys required (uses local models)
-
-**roundtrip_v2.sh** - Complete translation pipeline
-- Orchestrates all three translation steps
-- Measures semantic similarity
-- Formats output for readability
-
----
-
-## Quick Start
-
-### Installation
-
-```bash
-# 1. Navigate to TRANSLATOR_V2
-cd /Users/bvolovelsky/Desktop/LLM/TRANSLATOR_V2
-
-# 2. Install Python dependencies
-python3 -m pip install sentence-transformers
-
-# 3. Make scripts executable
-chmod +x roundtrip_v2.sh
-chmod +x scripts/embedding_similarity_local.py
-```
-
-### Basic Usage
-
-```bash
-# Run a round-trip translation
-./roundtrip_v2.sh "I like going to the beach with Ben"
-
-# Measure semantic similarity between two sentences
-python3 scripts/embedding_similarity_local.py "original sentence" "translated sentence"
-
-# Interactive similarity mode
-python3 scripts/embedding_similarity_local.py
-```
-
-### Expected Output
-
-```
-═══════════════════════════════════════════════════════════
-  ROUND-TRIP TRANSLATION V2
-  Pipeline: English → Spanish → Hebrew → English
-═══════════════════════════════════════════════════════════
-
-[STEP 1/3] Translating English → Spanish...
-Input: I like going to the beach with Ben
-
-Spanish Output: Me gusta ir a la playa con Ben
-
-[STEP 2/3] Translating Spanish → Hebrew...
-Input: Me gusta ir a la playa con Ben
-
-Hebrew Output: אני אוהב ללכת לחוף עם בן
-
-[STEP 3/3] Translating Hebrew → English...
-Input: אני אוהב ללכת לחוף עם בן
-
-Final English: I love going to the beach with Ben
-
-═══════════════════════════════════════════════════════════
-  SEMANTIC SIMILARITY ANALYSIS
-═══════════════════════════════════════════════════════════
-
-Original Input: I like going to the beach with Ben
-Final Output: I love going to the beach with Ben
-Similarity Score: 0.9747 (EXCELLENT)
+├── scripts/                     # Python scripts
+│   ├── run_experiment.py       # Main experiment runner
+│   ├── spelling_error_injector.py  # Spelling error injection
+│   └── embedding_similarity_local.py  # Vector similarity
+│
+├── tests/                       # Unit tests
+│   ├── conftest.py             # Pytest configuration
+│   ├── test_spelling_error_injector.py
+│   ├── test_embedding_similarity.py
+│   └── test_experiment_runner.py
+│
+└── roundtrip_v2.sh             # Shell script for pipeline
 ```
 
 ---
 
-## Features
+## Running the Experiment
 
-### 1. Multi-Language Translation Pipeline
+### Full Experiment (with Claude API)
 
-```
-English
-   ↓ (en-es-translator agent)
-Spanish
-   ↓ (es-he-translator agent)
-Hebrew
-   ↓ (he-en-translator agent)
-English
+```bash
+# Set your API key
+export ANTHROPIC_API_KEY="your-api-key-here"
+
+# Run the experiment
+python scripts/run_experiment.py
 ```
 
-**Why this chain?**
-- Tests language preservation across structurally different languages
-- English ↔ Spanish: Romance language similarity
-- Spanish ↔ Hebrew: Completely different structures (VSO vs SVO, binyan system, etc.)
-- Hebrew ↔ English: Full reversal with complex transformations
+### Mock Mode (No API Key Required)
 
-### 2. Semantic Similarity Measurement
-
-```
-Input:  "I like going to the beach"
-Output: "I love going to the beach"
-
-Embedding Model: all-MiniLM-L6-v2
-Dimensions: 384
-Similarity Score: 0.9747
-
-Interpretation: Identical/Near-Identical (semantically the same) ✓
+```bash
+# Run with mock translations
+python scripts/run_experiment.py --mock
 ```
 
-**Quality Thresholds:**
-- ≥0.95: Identical/Near-Identical (EXCELLENT)
-- ≥0.85: Very Similar (GOOD)
-- ≥0.75: Similar (ACCEPTABLE)
-- ≥0.65: Moderately Similar (FAIR)
-- ≥0.50: Somewhat Similar (POOR)
-- <0.50: Dissimilar (VERY POOR)
+### View Test Sentences Only
 
-### 3. Natural Phrasing Preservation
+```bash
+python scripts/run_experiment.py --sentences-only
+```
 
-Each agent includes built-in rules to prevent common translation errors:
+### Command Line Options
 
-**English → Spanish:**
-- Gustar pattern mastery (Me gusta ir, not Yo gusta)
-- Proper subject pronoun omission
-- Reflexive verb handling
+| Option | Description |
+|--------|-------------|
+| `--mock` | Use mock translations (no API calls) |
+| `--sentences-only` | Display test sentences without running experiment |
+| `--api-key KEY` | Provide API key directly |
+| `--output-dir DIR` | Specify output directory |
 
-**Spanish → Hebrew:**
-- Gustar to direct verb conversion (Me gusta → Ani ohev)
-- Gender agreement chains
-- Binyan pattern selection
+### Output Files
 
-**Hebrew → English:**
-- VSO to SVO word order conversion
-- Nikud ambiguity resolution
-- Gender-to-pronoun mapping
+After running, the script generates:
+- `experiment_results_TIMESTAMP.json` - Full results data
+- `spelling_error_graph_TIMESTAMP.png` - Visualization graph
 
 ---
 
-## Agents
+## Test Sentences
 
-### 1. English to Spanish Translator
+The experiment uses these test sentences (15+ words each, as required):
 
-**File:** `agents/en-es-translator.md`
-
-**Capabilities:**
-- Gustar pattern mastery
-- Subject pronoun optimization
-- Word order flexibility (SVO, VSO, OVS)
-- Ser vs Estar discrimination
-- Por vs Para distinction
-- Subjunctive mood recognition
-
-**Example:**
+### Sentence 1 (20 words)
 ```
-Input:  "I like going to the beach"
-Output: "Me gusta ir a la playa"
-        (not "Yo gusta ir a la playa")
+The magnificent golden sunset painted the entire western sky with
+beautiful shades of orange, pink, and deep purple colors.
 ```
 
-### 2. Spanish to Hebrew Translator
-
-**File:** `agents/es-he-translator.md`
-
-**Capabilities:**
-- Gender transformation (Spanish → Hebrew)
-- Article system conversion (un/una → no article)
-- Binyan system mastery (7 Hebrew verb patterns)
-- Subjunctive → Future tense conversion
-- Natural Hebrew phrasing
-
-**Example:**
+### Sentence 2 (18 words)
 ```
-Input:  "Me gusta ir a la playa"
-Output: "אני אוהב ללכת לחוף"
-        (not literal translation)
+Every morning the dedicated young student walks through the peaceful
+park to reach her university campus on time.
 ```
 
-### 3. Hebrew to English Translator
+### Misspelled Versions
 
-**File:** `agents/he-en-translator.md`
+The spelling error injector creates variants at different error rates:
 
-**Capabilities:**
-- Nikud ambiguity resolution (vowel point inference)
-- Binyan pattern recognition
-- Gender-to-pronoun mapping
-- VSO to SVO conversion
-- Natural English phrasing
-
-**Example:**
-```
-Input:  "אני אוהב ללכת לחוף עם בן"
-Output: "I love going to the beach with Ben"
-        (not "To-go I-love to-beach")
-```
-
-### Agent Configuration
-
-All agents use YAML frontmatter:
-
-```yaml
----
-description: Agent description
----
-
-# Agent content follows
-```
-
-This format allows agents to be invoked using Claude Code's agent system:
-
-```bash
-claude --agents en-es-translator "Translate: [text]"
-```
+| Error Rate | Example (Sentence 1) |
+|------------|---------------------|
+| 0% | Original (no changes) |
+| 10% | ~2 words modified |
+| 25% | ~5 words modified |
+| 50% | ~10 words modified |
 
 ---
 
-## Scripts
+## Agent Definitions
 
-### embedding_similarity_local.py
+### Agent 1: English → French (`en-fr-translator.md`)
 
-**Purpose:** Measure semantic similarity between two sentences using local embeddings.
+**Core Competencies:**
+1. **Subjunctive Mastery** - French subjunctive mood usage
+2. **Partitive Articles** - du/de la/de l'/des usage
+3. **Natural Phrasing** - Avoiding literal translations
 
-**Usage:**
+**Key Skills:**
+- `subjunctive_mastery.md`
+- `partitive_article_usage.md`
+- `natural_phrasing_preservation.md`
 
-```bash
-# Command-line mode
-python3 scripts/embedding_similarity_local.py "sentence 1" "sentence 2"
+### Agent 2: French → Hebrew (`fr-he-translator.md`)
 
-# Interactive mode
-python3 scripts/embedding_similarity_local.py
-```
+**Core Competencies:**
+1. **Gender Transformation** - Independent Hebrew gender lookup
+2. **Binyan Selection** - 7 Hebrew verb patterns
+3. **Article Conversion** - French articles to Hebrew system
 
-**Key Features:**
-- **No API keys required** - Uses local sentence-transformers model
-- **Fast** - Typical runtime: 2-5 seconds per comparison
-- **Accurate** - Uses all-MiniLM-L6-v2 model (384 dimensions)
-- **JSON output** - Results saved to timestamped JSON files
+**Key Skills:**
+- `gender_transformation.md`
+- `binyan_selection.md`
+- `article_system_conversion.md`
 
-**Output Example:**
+### Agent 3: Hebrew → English (`he-en-translator.md`)
 
-```json
-{
-  "input_sentence": "I like going to the beach with Ben",
-  "output_sentence": "I love going to the beach with Ben",
-  "similarity_score": 0.9747455071499018,
-  "embedding_model": "all-MiniLM-L6-v2",
-  "embedding_dimensions": 384,
-  "timestamp": "2025-11-21T13:54:35.951115",
-  "interpretation": "Identical/Near-Identical (semantically the same)"
-}
-```
+**Core Competencies:**
+1. **Word Order Conversion** - VSO to SVO transformation
+2. **Gender-Pronoun Mapping** - Hebrew gender to English pronouns
+3. **Nikud Resolution** - Vowel ambiguity handling
 
-**Installation:**
-
-```bash
-python3 -m pip install sentence-transformers
-```
+**Key Skills:**
+- `word_order_conversion.md`
+- `gender_pronoun_mapping.md`
 
 ---
 
-## Usage Examples
+## Running Tests
 
-### Example 1: Basic Round-Trip Translation
-
-```bash
-./roundtrip_v2.sh "The quiet sunrise warmed the horizon"
-```
-
-**Output:**
-```
-Original Input:   The quiet sunrise warmed the horizon
-Spanish:          El amanecer tranquilo calentó el horizonte
-Hebrew:           השקיעה השקטה חממה את האופק
-Final English:    The quiet sunrise warmed the horizon
-
-Similarity Score: 0.94 (EXCELLENT) ✓
-```
-
-### Example 2: Semantic Quality Check
+### Run All Tests
 
 ```bash
-python3 scripts/embedding_similarity_local.py \
-  "I've got a feeling that tonight is gonna be a good night" \
-  "I have a feeling that this evening will be wonderful"
+# Windows
+python -m pytest tests/ -v
+
+# macOS/Linux
+pytest tests/ -v
 ```
 
-**Output:**
-```
-Similarity Score: 0.8742
-Interpretation: Very Similar (same core meaning)
-Translation Quality: GOOD ✓
-```
-
-### Example 3: Interactive Similarity Checker
+### Run Specific Test File
 
 ```bash
-python3 scripts/embedding_similarity_local.py
-
-# Prompts for input:
-# Input Sentence: The quick brown fox jumps over the lazy dog
-# Output Sentence: A fast reddish canine leaps across a sluggish dog
+pytest tests/test_spelling_error_injector.py -v
+pytest tests/test_embedding_similarity.py -v
+pytest tests/test_experiment_runner.py -v
 ```
 
-### Example 4: Batch Processing
+### Run Tests with Coverage
 
 ```bash
-# Create test_sentences.txt
-cat > test_sentences.txt << 'EOF'
-I like going to the beach with Ben
-Why did you think that your plan would work
-The sun was setting as we walked home
-EOF
-
-# Process each sentence
-while IFS= read -r sentence; do
-  echo "Processing: $sentence"
-  ./roundtrip_v2.sh "$sentence"
-  echo "---"
-done < test_sentences.txt
+pip install pytest-cov
+pytest tests/ --cov=scripts --cov-report=html
 ```
+
+### Test Categories
+
+| Test File | Tests |
+|-----------|-------|
+| `test_spelling_error_injector.py` | Error injection, rates, reproducibility |
+| `test_embedding_similarity.py` | Embeddings, similarity scores, thresholds |
+| `test_experiment_runner.py` | Pipeline, experiment flow, results |
 
 ---
 
-## Quality Assurance
+## Assignment Deliverables
 
-### Validation Criteria
+### 1. Sentences Used (with misspellings)
 
-Each translation is evaluated on:
+See [Test Sentences](#test-sentences) section above.
 
-1. **Grammatical Correctness**
-   - Proper verb conjugation
-   - Gender/number agreement
-   - Correct article usage
+### 2. Sentence Lengths
 
-2. **Semantic Preservation**
-   - Original meaning maintained
-   - No information loss
-   - Similarity score ≥0.85
+| Sentence | Word Count |
+|----------|------------|
+| Sentence 1 | 20 words |
+| Sentence 2 | 18 words |
 
-3. **Natural Phrasing**
-   - No word-for-word translations
-   - Idiomatic expressions used
-   - Native speaker naturalness
+### 3. Agent Definitions/Skills
 
-4. **Cultural Appropriateness**
-   - Register maintained
-   - Idioms adapted
-   - Regional variations respected
+See [Agent Definitions](#agent-definitions) section above.
 
-### Testing Procedure
+Full agent files in `agents/` directory:
+- `en-fr-translator.md` (English → French)
+- `fr-he-translator.md` (French → Hebrew)
+- `he-en-translator.md` (Hebrew → English)
 
+### 4. Graph
+
+Generated by running:
 ```bash
-# 1. Run round-trip translation
-./roundtrip_v2.sh "Test sentence"
-
-# 2. Check similarity score (should be ≥0.85)
-# 3. Verify output is grammatically correct
-# 4. Confirm meaning is preserved
-# 5. Assess naturalness (would native speaker say it?)
-
-# Full validation:
-python3 scripts/embedding_similarity_local.py \
-  "original sentence" \
-  "final output sentence"
+python scripts/run_experiment.py --mock
 ```
 
-### Success Criteria
+Output: `spelling_error_graph_TIMESTAMP.png`
 
-✓ **Translation completes without errors**
-✓ **Similarity score ≥ 0.85**
-✓ **Output is grammatically correct**
-✓ **Meaning is semantically preserved**
-✓ **Phrasing is natural and idiomatic**
+- **X-axis:** Spelling error percentage (0% - 50%)
+- **Y-axis:** Vector distance between original and final sentences
 
----
+### 5. Python Code
 
-## Architecture
-
-### Translation Pipeline Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                  roundtrip_v2.sh                        │
-│                  (Orchestrator)                         │
-└─────────────────┬───────────────────────────────────────┘
-                  │
-     ┌────────────┼────────────┐
-     ↓            ↓            ↓
-┌─────────┐  ┌─────────┐  ┌─────────┐
-│EN→ES    │  │ES→HE    │  │HE→EN    │
-│Agent    │→ │Agent    │→ │Agent    │
-└─────────┘  └─────────┘  └─────────┘
-     │            │            │
-     └────────────┼────────────┘
-                  ↓
-         ┌──────────────────┐
-         │  embedding_      │
-         │  similarity_     │
-         │  local.py        │
-         │  (Validator)     │
-         └──────────────────┘
-                  ↓
-         ┌──────────────────┐
-         │  Quality Report  │
-         │  + JSON Output   │
-         └──────────────────┘
-```
-
-### Data Flow
-
-```
-Input Text
-    ↓
-English Analysis
-    ├─ Error correction
-    ├─ Context analysis
-    └─ Structure mapping
-    ↓
-Spanish Translation
-    ├─ Vocabulary selection
-    ├─ Verb conjugation
-    └─ Natural phrasing
-    ↓
-Spanish Analysis
-    ├─ Gender transformation
-    ├─ Binyan selection
-    └─ Hebrew structure mapping
-    ↓
-Hebrew Translation
-    ├─ Character encoding
-    ├─ Gender agreement
-    └─ Idiomatic expression
-    ↓
-Hebrew Analysis
-    ├─ Nikud resolution
-    ├─ Word order conversion
-    └─ Pronoun mapping
-    ↓
-English Translation
-    ├─ VSO → SVO conversion
-    ├─ Natural phrasing
-    └─ Semantic preservation
-    ↓
-Output Text
-    ↓
-Embedding Generation
-    ├─ Original sentence embedding
-    ├─ Final output embedding
-    └─ Cosine similarity calculation
-    ↓
-Quality Score (0-1)
-    ├─ ≥0.95: EXCELLENT
-    ├─ ≥0.85: GOOD
-    ├─ ≥0.75: ACCEPTABLE
-    ├─ ≥0.65: FAIR
-    ├─ ≥0.50: POOR
-    └─ <0.50: VERY POOR
-```
+All Python code is in the `scripts/` directory:
+- `run_experiment.py` - Main experiment runner
+- `spelling_error_injector.py` - Spelling error injection
+- `embedding_similarity_local.py` - Embedding and similarity
 
 ---
 
 ## Troubleshooting
 
-### Issue: "python3: command not found"
+### Common Issues
 
-**Solution:**
+#### "sentence-transformers not installed"
 ```bash
-# Check if Python 3 is installed
-which python3
-
-# If not installed, install Python 3
-brew install python3  # macOS
-apt-get install python3  # Linux
+pip install sentence-transformers
 ```
 
-### Issue: "sentence-transformers module not found"
-
-**Solution:**
+#### "matplotlib not installed"
 ```bash
-python3 -m pip install sentence-transformers --upgrade
+pip install matplotlib
 ```
 
-### Issue: Script permission denied
+#### "ANTHROPIC_API_KEY not set"
+```bash
+# Option 1: Set environment variable
+export ANTHROPIC_API_KEY="your-key"
 
-**Solution:**
+# Option 2: Use mock mode (no API needed)
+python scripts/run_experiment.py --mock
+```
+
+#### Model download slow
+The first run downloads the embedding model (~90MB). This is normal and only happens once.
+
+#### Windows: "python3 not found"
+Use `python` instead of `python3` on Windows:
+```powershell
+python scripts/run_experiment.py --mock
+```
+
+#### macOS: Permission denied on shell script
 ```bash
 chmod +x roundtrip_v2.sh
-chmod +x scripts/embedding_similarity_local.py
 ```
 
-### Issue: Translation output is empty
+### Performance
 
-**Solution:**
-1. Verify input text is provided
-2. Check agent names are correct
-3. Ensure agents are in correct directory
-4. Test with simple sentences first
-
-```bash
-# Test with simple sentence
-./roundtrip_v2.sh "Hello world"
-
-# Test agent directly
-claude --agents en-es-translator "Hello"
-```
-
-### Issue: Low similarity score (<0.85)
-
-**Possible causes:**
-- Input contains domain-specific terminology
-- Complex grammatical structures
-- Idiomatic expressions that don't translate directly
-- Ambiguous phrasing
-
-**Solution:**
-```bash
-# Test individual translation steps
-./roundtrip_v2.sh "Your sentence"
-
-# Check intermediate translations
-# If Spanish is correct but final English differs, issue is in later steps
-
-# Try simpler sentence to isolate problem
-./roundtrip_v2.sh "I like cats"
-```
-
-### Issue: Agent not found error
-
-**Solution:**
-```bash
-# Verify agents directory path
-ls -la /Users/bvolovelsky/Desktop/LLM/TRANSLATOR_V2/agents/
-
-# Verify agent files exist
-cat /Users/bvolovelsky/Desktop/LLM/TRANSLATOR_V2/agents/en-es-translator.md
-
-# Update agent path in scripts if needed
-sed -i 's|AGENT_PATH|/actual/path|g' roundtrip_v2.sh
-```
+| Operation | Time |
+|-----------|------|
+| Model loading | 5-10 seconds (first run) |
+| Single embedding | 0.1-0.5 seconds |
+| Full experiment (mock) | 30-60 seconds |
+| Full experiment (API) | 2-5 minutes |
 
 ---
 
-## Performance Benchmarks
-
-### Translation Speed
-
-| Component | Time | Notes |
-|-----------|------|-------|
-| English → Spanish | 1-3 sec | Fastest stage |
-| Spanish → Hebrew | 1-3 sec | Moderate complexity |
-| Hebrew → English | 1-3 sec | VSO conversion |
-| Embedding similarity | 2-5 sec | Model loading + inference |
-| **Total round-trip** | **5-15 sec** | End-to-end |
-
-### Quality Metrics
-
-| Metric | Target | Actual |
-|--------|--------|--------|
-| Similarity score | ≥0.85 | 0.92-0.98 |
-| Grammatical accuracy | >95% | 98%+ |
-| Semantic preservation | 100% | 99%+ |
-| Naturalness | >90% | 94%+ |
-
-### Memory Usage
+## Architecture
 
 ```
-Embedding model load: ~150 MB
-Python process overhead: ~50 MB
-Total per run: ~200 MB
+┌─────────────────────────────────────────────────────────────┐
+│                    INPUT PROCESSING                          │
+│  Original English → Spelling Error Injection (0-50%)        │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  TRANSLATION PIPELINE                        │
+│                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐              │
+│  │  Agent 1 │───▶│  Agent 2 │───▶│  Agent 3 │              │
+│  │  EN→FR   │    │  FR→HE   │    │  HE→EN   │              │
+│  └──────────┘    └──────────┘    └──────────┘              │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  QUALITY MEASUREMENT                         │
+│                                                              │
+│  Original English ──┐                                        │
+│                     ├──▶ Vector Embeddings ──▶ Cosine       │
+│  Final English ─────┘                          Similarity   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    VISUALIZATION                             │
+│  Graph: Spelling Error % vs Vector Distance                 │
+└─────────────────────────────────────────────────────────────┘
 ```
-
-### Scalability
-
-- **Batch processing**: Can handle 100+ sentences sequentially
-- **Concurrent usage**: Agent system can handle multiple users
-- **Large documents**: Process line-by-line for memory efficiency
-
-```bash
-# Efficient batch processing
-cat large_file.txt | while read line; do
-  ./roundtrip_v2.sh "$line" >> output.txt
-done
-```
-
----
-
-## Comparison: TRANSLATOR vs TRANSLATOR_V2
-
-| Aspect | TRANSLATOR | TRANSLATOR_V2 |
-|--------|-----------|---------------|
-| Agent Format | Verbose Markdown | YAML Frontmatter |
-| Agent Size | 600-900 lines | 150-200 lines |
-| Skill Files | External (5 files) | Embedded |
-| Format Compliance | Non-standard | Claude Code |
-| Configuration | ~/.claude/agents | Native support |
-| Embedding Checker | OpenAI API only | Local + API |
-| Documentation | Minimal | Comprehensive |
-| Maintenance | Complex | Simple |
-| Scalability | Limited | Better |
-
----
-
-## Related Files
-
-- **Embedding Checker**: See `SCRIPTS.md` for detailed documentation
-- **Agent Details**: See `AGENTS.md` for competency documentation
-- **Quick Lookup**: See `QUICK_REFERENCE.md` for command examples
-- **Original Project**: `/Users/bvolovelsky/Desktop/LLM/TRANSLATOR/`
-
----
-
-## Version History
-
-### v2.0 (Current)
-- YAML frontmatter agents
-- Concise agent design (150-200 lines)
-- Embedded competencies (no external skills)
-- Local embedding similarity checker
-- Comprehensive documentation
-- Better error handling
-
-### v1.0 (Original)
-- Verbose agent documentation (600-900 lines)
-- External skill files (5 per language pair)
-- Non-standard format
-- OpenAI API dependency
-
----
-
-## Future Enhancements
-
-- [ ] Support for additional language pairs
-- [ ] Performance optimization for large batches
-- [ ] Web UI for interactive translation
-- [ ] Integration with translation memory
-- [ ] Custom domain model support
-- [ ] Real-time translation feedback
-- [ ] Multi-GPU support for batch processing
-
----
-
-## Contributing
-
-To improve TRANSLATOR_V2:
-
-1. Test with diverse sentence types
-2. Report low similarity scores with examples
-3. Suggest additional language pairs
-4. Improve agent competencies
-5. Optimize performance
 
 ---
 
 ## License
 
-Internal use only. Project developed for language translation and natural language processing research.
+This project is for educational purposes as part of HW3 assignment.
 
 ---
 
 ## Support
 
-For issues or questions:
-
-1. Check `TROUBLESHOOTING.md` section above
-2. Review agent-specific documentation in `AGENTS.md`
-3. Check script documentation in `SCRIPTS.md`
-4. Test with simple examples first
-5. Review error messages carefully
-
----
-
-**Last Updated:** November 21, 2025
-**Created by:** Claude Code Assistant
-**Status:** Production Ready ✓
+For issues or questions, check the [Troubleshooting](#troubleshooting) section above.
