@@ -5,7 +5,9 @@
       "Bash(git show:*)",
       "Bash(python -m pytest:*)",
       "Bash(python scripts/run_experiment.py:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(where python)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

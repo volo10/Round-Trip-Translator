@@ -1,0 +1,230 @@
+{
+  "timestamp": "2025-11-26T12:39:26.602932",
+  "test_sentences": [
+    "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+    "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time."
+  ],
+  "sentence_lengths": [
+    19,
+    18
+  ],
+  "error_rates": [
+    0.0,
+    0.1,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "results": [
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Le magnifique coucher de soleil doré a peint tout le ciel occidental avec de belles nuances d'orange, de rose et de couleurs pourpre profondes.",
+      "hebrew_translation": "השקיעה המוזהבת היפה ציירה את כל השמיים המערביים עם גוונים יפים של תפוזים, ורודים וצבעים סגולים עמוקים.",
+      "final_english": "The beautiful sunset painted all the western sky with beautiful varieties of oranges, pinks and deep purple colors.",
+      "similarity_score": 0.90476409147955,
+      "vector_distance": 0.09523590852045005
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunsel painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.05263157894736842,
+      "french_translation": "Le magnifique sunsel doré peint tout le ciel occidental avec de belles nuances d'orange, de rose et de couleurs violettes profondes.",
+      "hebrew_translation": "הסוסל המוזהב היפהפה מצייר את כל השמיים המערביים עם גוונים יפים של כתום, ורוד וצבעים סגולים עמוקים.",
+      "final_english": "The beautiful golden mussel paints all the western sky with beautiful variety of orange, pink and deep purple colors.",
+      "similarity_score": 0.7146114457762075,
+      "vector_distance": 0.2853885542237925
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset oainted the entire westtern sky with beautiful shades of orange, pink, and deep purple folors.",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.15789473684210525,
+      "french_translation": "Le magnifique coucher de soleil doré oint tout le ciel de l'ouest avec de belles nuances d'orange, rose, et des folors violets profonds.",
+      "hebrew_translation": "השקיעה המוזהבת היפה, משוחה בכל שמי המערב, עם גוונים יפים של כתום, ורוד, ופולור סגול עמוק.",
+      "final_english": "The beautiful golden sunset, anointed all over the west, with beautiful variety of orange, pink, and deep purple.",
+      "similarity_score": 0.8811603787654708,
+      "vector_distance": 0.11883962123452918
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset painted the entirs westrn skky with beautiful shades of orange, pink, and deep purple colors.",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.15789473684210525,
+      "french_translation": "Le magnifique coucher de soleil doré peint les entirs westrn skky avec de belles nuances d'orange, de rose, et de couleurs violettes profondes.",
+      "hebrew_translation": "השקיעה המוזהבת היפה מציירת את חצאי ווסטרן סקי עם גוונים יפים של כתום, ורוד, וצבעים סגולים עמוקים.",
+      "final_english": "The beautiful golden sunset paints the Western Sky skirts with beautiful variety of orange, pink, and deep purple colors.",
+      "similarity_score": 0.9137801196584083,
+      "vector_distance": 0.08621988034159167
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificent golden sunset paited qhe entire western sky with beautiful shades of orange, piqk, and deep purrple colors.",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.21052631578947367,
+      "french_translation": "Le magnifique coucher de soleil doré paitait qhe tout le ciel occidental avec de belles nuances d'orange, piqk, et des couleurs pourpre profondes.",
+      "hebrew_translation": "השקיעה המוזהבת והיפהפייה הדהימה את כל השמיים המערביים עם גוונים יפים של תפוז, פיק, וצבעים סגולים עמוקים.",
+      "final_english": "The golden and beautiful sunset amazed all the western heavens with beautiful colors of orange, pic, and deep purple colors.",
+      "similarity_score": 0.8994304881190963,
+      "vector_distance": 0.10056951188090368
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificenlt golden suunset painted the wntire western eky with beautiful shades of orange, pink, end deep puprle coolrs.",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.3684210526315789,
+      "french_translation": "Le suunset doré magnificenlt peint le wntire western eky avec de belles nuances d'orange, rose, fin profond puprle refroidisseurs.",
+      "hebrew_translation": "הסונטה המוזהבת הגדולה מציירת את המערבונים המערביים האיקיים עם גוונים יפים של תפוז, ורודה, סוף מזוגג עמוק.",
+      "final_english": "The Golden Great Sonta paints the Westerns that exist with beautiful varieties of orange, pink, deep-rooted end.",
+      "similarity_score": 0.6228606350124578,
+      "vector_distance": 0.3771393649875422
+    },
+    {
+      "original_sentence": "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+      "input_with_errors": "The magnificentt golden suset pained teh entire western sky with beautifuk shqdes of orange, pnk, and deiep pirple colors.",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.47368421052631576,
+      "french_translation": "Le magnifique suset doré nuancé tout le ciel de l'Ouest avec des shqdes d'orange, de pnk et de pierple.",
+      "hebrew_translation": "רכס הזהב היפה הזהוב, מטשטש את כל שמי המערב עם שקדים של תפוז, פאנק ופיפל.",
+      "final_english": "The golden golden velvet, covering all my west name with orange, funk, and pipple blankets.",
+      "similarity_score": 0.43967907203582524,
+      "vector_distance": 0.5603209279641748
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "error_rate": 0.0,
+      "actual_error_rate": 0.0,
+      "french_translation": "Chaque matin, la jeune étudiante dévouée se promène dans le parc paisible pour atteindre son campus universitaire à temps.",
+      "hebrew_translation": "בכל בוקר, התלמידה הצעירה והמסורה מטיילת בפארק השקט כדי להגיע לקמפוס שלה בזמן.",
+      "final_english": "Every morning, the young and traditional student walks in the peaceful park to get to her campus in time.",
+      "similarity_score": 0.9381959684215269,
+      "vector_distance": 0.06180403157847314
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walls through the peaceful park to reach her university campus on time.",
+      "error_rate": 0.1,
+      "actual_error_rate": 0.05555555555555555,
+      "french_translation": "Chaque matin, les jeunes étudiants dévoués parcourent le paisible parc pour atteindre son campus universitaire à temps.",
+      "hebrew_translation": "בכל בוקר, סטודנטים צעירים מסורים עוברים בפארק השקט כדי להגיע לקמפוס האוניברסיטאי שלהם בזמן.",
+      "final_english": "Every morning, young students are sent to the peaceful park to get to their university campus on time.",
+      "similarity_score": 0.8242434160055909,
+      "vector_distance": 0.17575658399440908
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated youg student walks through the peaceful park to reach her university campuus on time.",
+      "error_rate": 0.2,
+      "actual_error_rate": 0.1111111111111111,
+      "french_translation": "Chaque matin, l'étudiante dévouée se promène dans le parc paisible pour atteindre son campuus universitaire à l'heure.",
+      "hebrew_translation": "בכל בוקר, התלמידה המסורה מטיילת בפארק השקט כדי להגיע לקמפוס האוניברסיטאי שלה בזמן.",
+      "final_english": "Every morning, the devoted student walks in the quiet park to get to her university campus in time.",
+      "similarity_score": 0.8985790993965558,
+      "vector_distance": 0.10142090060344422
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning the dedicated young student walkks through tehe peacefull park to feach her university campus on time.",
+      "error_rate": 0.25,
+      "actual_error_rate": 0.2222222222222222,
+      "french_translation": "Tous les matins, les jeunes étudiants se promènent dans un parc paisible pour frayer son campus universitaire à temps.",
+      "hebrew_translation": "בכל בוקר, סטודנטים צעירים מטיילים בפארק שקט כדי לעצב את הקמפוס שלהם בזמן.",
+      "final_english": "Every morning, young students travel in a quiet park to design their campus in time.",
+      "similarity_score": 0.6975501089387535,
+      "vector_distance": 0.30244989106124653
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Every morning tbe dedicated yourg student walks through the peaceful parkk to reach heer university campus on time.",
+      "error_rate": 0.3,
+      "actual_error_rate": 0.2222222222222222,
+      "french_translation": "Chaque matin, tbe a dédié votre étudiant marche à travers le parc paisible pour atteindre le campus universitaire plus haut à l'heure.",
+      "hebrew_translation": "בכל בוקר, טלב הקדיש את התלמיד שלך ללכת דרך הפארק השקט כדי להגיע לקמפוס האוניברסיטה מוקדם יותר.",
+      "final_english": "Every morning, Talb dedicated your student to walking through the peaceful park to get to the university campus earlier.",
+      "similarity_score": 0.7941602922102599,
+      "vector_distance": 0.20583970778974015
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Evedry mornfing the dedicated young student walks through hte peaceful patk to rreach her university cakpus on time.",
+      "error_rate": 0.4,
+      "actual_error_rate": 0.3333333333333333,
+      "french_translation": "Evedry matinfing la jeune étudiante dévouée marche à travers hte paisible patk pour atteindre son cakpus universitaire à temps.",
+      "hebrew_translation": "בוקר טוב, בוקר טוב. התלמידה הצעירה והמסורה צועדת דרך פקה שקטה כדי להגיע לקקפוס האקדמי שלה בזמן.",
+      "final_english": "Good morning, good morning.",
+      "similarity_score": 0.1392464224302759,
+      "vector_distance": 0.8607535775697241
+    },
+    {
+      "original_sentence": "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time.",
+      "input_with_errors": "Eveery morning hte dedicated young stident wlks through the peaceful ppark to reach hev university campes on time.",
+      "error_rate": 0.5,
+      "actual_error_rate": 0.3888888888888889,
+      "french_translation": "Chaque matin, hte dédié jeune stident wlks à travers le paisible parc pour atteindre hev campes universitaires à l'heure.",
+      "hebrew_translation": "בכל בוקר, מוקדש סטנדנט וולקס הצעיר דרך הפארק השקט כדי להגיע למחנאות האוניברסיטה בזמן.",
+      "final_english": "Every morning, the young Stendant Volks is dedicated through the peaceful park to get to university for a while.",
+      "similarity_score": 0.5085225160705644,
+      "vector_distance": 0.4914774839294356
+    }
+  ],
+  "summary": {
+    "total_runs": 14,
+    "by_error_rate": {
+      "0%": {
+        "count": 2,
+        "avg_distance": 0.0785199700494616,
+        "avg_similarity": 0.9214800299505383,
+        "min_distance": 0.06180403157847314,
+        "max_distance": 0.09523590852045005
+      },
+      "10%": {
+        "count": 2,
+        "avg_distance": 0.2305725691091008,
+        "avg_similarity": 0.7694274308908993,
+        "min_distance": 0.17575658399440908,
+        "max_distance": 0.2853885542237925
+      },
+      "20%": {
+        "count": 2,
+        "avg_distance": 0.1101302609189867,
+        "avg_similarity": 0.8898697390810133,
+        "min_distance": 0.10142090060344422,
+        "max_distance": 0.11883962123452918
+      },
+      "25%": {
+        "count": 2,
+        "avg_distance": 0.1943348857014191,
+        "avg_similarity": 0.8056651142985809,
+        "min_distance": 0.08621988034159167,
+        "max_distance": 0.30244989106124653
+      },
+      "30%": {
+        "count": 2,
+        "avg_distance": 0.15320460983532191,
+        "avg_similarity": 0.8467953901646781,
+        "min_distance": 0.10056951188090368,
+        "max_distance": 0.20583970778974015
+      },
+      "40%": {
+        "count": 2,
+        "avg_distance": 0.6189464712786332,
+        "avg_similarity": 0.3810535287213669,
+        "min_distance": 0.3771393649875422,
+        "max_distance": 0.8607535775697241
+      },
+      "50%": {
+        "count": 2,
+        "avg_distance": 0.5258992059468052,
+        "avg_similarity": 0.47410079405319483,
+        "min_distance": 0.4914774839294356,
+        "max_distance": 0.5603209279641748
+      }
+    }
+  }
+}

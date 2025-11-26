@@ -98,7 +98,7 @@ def validate_sentences(sentences: List[str], strict: bool = False) -> List[str]:
 def translate_with_claude(text: str, source_lang: str, target_lang: str,
                          api_key: Optional[str] = None) -> str:
     """
-    Translate text using Claude API.
+    Translate text using Claude API with agent-specific system prompts.
 
     Args:
         text: Text to translate
@@ -120,16 +120,45 @@ def translate_with_claude(text: str, source_lang: str, target_lang: str,
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    prompt = f"""Translate the following text from {source_lang} to {target_lang}.
-Return ONLY the translation with no explanations or additional text.
+    # Agent-specific system prompts based on translation direction
+    system_prompts = {
+        ("English", "French"): """You are Agent 1: Expert English to French translator.
+Follow these guidelines:
+- Use subjunctive for doubt, emotion, desire, necessity
+- Apply partitive articles (du/de la/de l'/des) correctly
+- Always include subject pronouns
+- BANGS adjectives before nouns, others after
+- Natural phrasing: "I miss you" → "Tu me manques", "I am cold" → "J'ai froid"
+- Handle spelling errors by understanding intended meaning
+Return ONLY the French translation.""",
 
-Text to translate:
-{text}"""
+        ("French", "Hebrew"): """You are Agent 2: Expert French to Hebrew translator.
+Follow these guidelines:
+- French gender does NOT transfer to Hebrew - determine Hebrew gender independently
+- Select correct binyan based on meaning (Pa'al, Nif'al, Pi'el, Hif'il, Hitpa'el)
+- Convert articles: le/la/les → ה prefix
+- Tense mapping: passé composé → past, futur → future
+Return ONLY the Hebrew translation.""",
+
+        ("Hebrew", "English"): """You are Agent 3: Expert Hebrew to English translator.
+Follow these guidelines:
+- Resolve nikud ambiguities using context
+- Map Hebrew binyan to appropriate English verb forms
+- Convert VSO word order to SVO
+- Map gender to correct pronouns (feminine -ת → "she", masculine → "he")
+- Expand prefixes: ב → "in", ל → "to", מ → "from", ה → "the"
+- Produce natural, native-sounding English
+Return ONLY the English translation."""
+    }
+
+    system = system_prompts.get((source_lang, target_lang),
+        f"You are an expert {source_lang} to {target_lang} translator. Return ONLY the translation.")
 
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}]
+        system=system,
+        messages=[{"role": "user", "content": f"Translate:\n\n{text}"}]
     )
 
     return message.content[0].text.strip()
@@ -240,19 +269,29 @@ def mock_translate(text: str, source_lang: str, target_lang: str) -> str:
 
 
 def run_translation_pipeline(text: str, use_mock: bool = False,
-                            api_key: Optional[str] = None) -> Tuple[str, str, str]:
+                            use_local: bool = False,
+                            api_key: Optional[str] = None,
+                            local_pipeline=None) -> Tuple[str, str, str]:
     """
     Run the full translation pipeline: EN -> FR -> HE -> EN
 
     Args:
         text: English text to translate
         use_mock: If True, use mock translations instead of API
+        use_local: If True, use local MarianMT models
         api_key: Optional API key for Claude
+        local_pipeline: LocalTranslationPipeline instance (for local mode)
 
     Returns:
         Tuple of (french_text, hebrew_text, final_english_text)
     """
-    translate = mock_translate if use_mock else lambda t, s, d: translate_with_claude(t, s, d, api_key)
+    if use_local and local_pipeline:
+        # Use local MarianMT models
+        return local_pipeline.run_pipeline(text)
+    elif use_mock:
+        translate = mock_translate
+    else:
+        translate = lambda t, s, d: translate_with_claude(t, s, d, api_key)
 
     # Step 1: English -> French
     french = translate(text, "English", "French")
@@ -273,6 +312,7 @@ def run_translation_pipeline(text: str, use_mock: bool = False,
 def run_experiment(sentences: List[str] = None,
                   error_rates: List[float] = None,
                   use_mock: bool = False,
+                  use_local: bool = False,
                   api_key: Optional[str] = None,
                   verbose: bool = True) -> ExperimentResult:
     """
@@ -282,6 +322,7 @@ def run_experiment(sentences: List[str] = None,
         sentences: Test sentences (uses TEST_SENTENCES if None)
         error_rates: Error rates to test (default: 0%, 10%, 20%, 25%, 30%, 40%, 50%)
         use_mock: If True, use mock translations
+        use_local: If True, use local MarianMT models (no API needed)
         api_key: Optional API key
         verbose: Print progress
 
@@ -298,7 +339,21 @@ def run_experiment(sentences: List[str] = None,
     injector = SpellingErrorInjector(seed=42)
     similarity_checker = LocalEmbeddingSimilarityChecker()
 
+    # Initialize local translation pipeline if needed
+    local_pipeline = None
+    if use_local:
+        from local_translation_agents import LocalTranslationPipeline
+        local_pipeline = LocalTranslationPipeline(verbose=False)
+
     results: List[TranslationResult] = []
+
+    # Determine mode string
+    if use_local:
+        mode_str = "Local Models (MarianMT)"
+    elif use_mock:
+        mode_str = "Mock (no API)"
+    else:
+        mode_str = "Claude API"
 
     if verbose:
         print("\n" + "=" * 70)
@@ -307,7 +362,7 @@ def run_experiment(sentences: List[str] = None,
         print("=" * 70)
         print(f"\nTest sentences: {len(sentences)}")
         print(f"Error rates to test: {[f'{r*100:.0f}%' for r in error_rates]}")
-        print(f"Mode: {'Mock (no API)' if use_mock else 'Claude API'}")
+        print(f"Mode: {mode_str}")
         print()
 
     # Run experiments
@@ -328,7 +383,9 @@ def run_experiment(sentences: List[str] = None,
                 french, hebrew, final_english = run_translation_pipeline(
                     error_stats.modified_text,
                     use_mock=use_mock,
-                    api_key=api_key
+                    use_local=use_local,
+                    api_key=api_key,
+                    local_pipeline=local_pipeline
                 )
             except Exception as e:
                 if verbose:
@@ -584,6 +641,8 @@ def main():
     )
     parser.add_argument('--mock', action='store_true',
                        help='Use mock translations instead of Claude API')
+    parser.add_argument('--local', action='store_true',
+                       help='Use local MarianMT models (real translations, no API)')
     parser.add_argument('--sentences-only', action='store_true',
                        help='Only display test sentences, do not run experiment')
     parser.add_argument('--api-key', type=str, default=None,
@@ -617,6 +676,7 @@ def main():
     experiment = run_experiment(
         sentences=sentences,
         use_mock=args.mock,
+        use_local=args.local,
         api_key=args.api_key,
         verbose=True
     )

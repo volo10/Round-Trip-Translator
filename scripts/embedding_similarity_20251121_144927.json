@@ -1,9 +1,0 @@
-{
-  "input_sentence": "I like going to the beach with Ben",
-  "output_sentence": "I love going to the beach with Ben",
-  "similarity_score": 0.9747455071499018,
-  "embedding_model": "all-MiniLM-L6-v2",
-  "embedding_dimensions": 384,
-  "timestamp": "2025-11-21T14:49:27.380722",
-  "interpretation": "Identical/Near-Identical (semantically the same)"
-}

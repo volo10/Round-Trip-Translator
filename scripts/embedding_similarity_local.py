@@ -120,7 +120,7 @@ class LocalEmbeddingSimilarityChecker:
 
         print("  Embedding output sentence...")
         self.output_embedding = self.get_embedding(output_sentence)
-        print(f"  ✓ Output embedding generated ({len(self.output_embedding)} dimensions)")
+        print(f"  Output embedding generated ({len(self.output_embedding)} dimensions)")
 
         # Calculate similarity
         print()
@@ -129,7 +129,7 @@ class LocalEmbeddingSimilarityChecker:
             self.input_embedding,
             self.output_embedding
         )
-        print(f"  ✓ Similarity calculated")
+        print(f"  Similarity calculated")
 
         # Create results dictionary
         results = {
@@ -198,19 +198,19 @@ class LocalEmbeddingSimilarityChecker:
         # Quality assessment for translation
         score = results['similarity_score']
         if score >= 0.85:
-            print("✓ Translation Quality: EXCELLENT")
+            print("[OK] Translation Quality: EXCELLENT")
             print("  The output sentence preserves the semantic meaning of the input.")
         elif score >= 0.75:
-            print("✓ Translation Quality: GOOD")
+            print("[OK] Translation Quality: GOOD")
             print("  The output sentence maintains similar semantic meaning.")
         elif score >= 0.65:
-            print("⚠ Translation Quality: FAIR")
+            print("[!] Translation Quality: FAIR")
             print("  The output sentence has some semantic drift from the input.")
         elif score >= 0.50:
-            print("⚠ Translation Quality: POOR")
+            print("[!] Translation Quality: POOR")
             print("  The output sentence has significant semantic differences.")
         else:
-            print("✗ Translation Quality: VERY POOR")
+            print("[X] Translation Quality: VERY POOR")
             print("  The output sentence differs substantially from the input.")
 
         print()

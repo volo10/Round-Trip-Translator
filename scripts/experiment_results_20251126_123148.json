@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-11-26T12:31:48.650390",
+  "test_sentences": [
+    "The magnificent golden sunset painted the entire western sky with beautiful shades of orange, pink, and deep purple colors.",
+    "Every morning the dedicated young student walks through the peaceful park to reach her university campus on time."
+  ],
+  "sentence_lengths": [
+    19,
+    18
+  ],
+  "error_rates": [
+    0.0,
+    0.1,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "results": [],
+  "summary": {
+    "total_runs": 0,
+    "by_error_rate": {}
+  }
+}

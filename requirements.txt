@@ -5,6 +5,10 @@
 sentence-transformers>=2.2.0    # Local embedding models
 matplotlib>=3.5.0               # Graph generation
 
+# Local translation models (no API needed)
+transformers>=4.30.0            # Hugging Face transformers
+sentencepiece>=0.1.99           # Required for MarianMT tokenizer
+
 # Testing dependencies
 pytest>=7.0.0                   # Unit testing framework
 pytest-cov>=4.0.0               # Coverage reporting (optional)

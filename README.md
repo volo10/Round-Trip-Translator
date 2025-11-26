@@ -1,7 +1,7 @@
 # Round-Trip-Translator - Multi-Agent Translation Pipeline
 
-**Version:** 2.1
-**Last Updated:** November 22, 2025
+**Version:** 3.0
+**Last Updated:** November 26, 2025
 **Status:** Production Ready
 
 ## Assignment Overview
@@ -13,6 +13,14 @@ This project implements a **Multi-Agent Translation System** with **Vector Dista
 - **Vector Distance Measurement:** Cosine similarity using embeddings
 - **Graph Visualization:** Spelling error % vs. vector distance
 
+### Three Implementation Options
+
+| Implementation | Description | Requires API Key? | Real Translations? |
+|----------------|-------------|-------------------|-------------------|
+| **Python + Local Models** | Uses MarianMT models locally | No | Yes |
+| **Python + Claude API** | Uses Claude API for translations | Yes | Yes |
+| **Claude Code Agents** | Interactive via slash commands | No | Yes |
+
 ---
 
 ## Table of Contents
@@ -22,30 +30,153 @@ This project implements a **Multi-Agent Translation System** with **Vector Dista
    - [Windows](#windows-installation)
    - [macOS](#macos-installation)
 3. [Project Structure](#project-structure)
-4. [Running the Experiment](#running-the-experiment)
-5. [Test Sentences](#test-sentences)
-6. [Agent Definitions](#agent-definitions)
-7. [Running Tests](#running-tests)
-8. [Assignment Deliverables](#assignment-deliverables)
-9. [Troubleshooting](#troubleshooting)
+4. [Implementation 1: Python Scripts](#implementation-1-python-scripts)
+5. [Implementation 2: Claude Code Agents](#implementation-2-claude-code-agents)
+6. [Test Sentences](#test-sentences)
+7. [Agent Definitions](#agent-definitions)
+8. [Running Tests](#running-tests)
+9. [Assignment Deliverables](#assignment-deliverables)
+10. [Troubleshooting](#troubleshooting)
 
 ---
 
 ## Quick Start
 
+### Step 1: Install Dependencies
 ```bash
-# 1. Install dependencies
-pip install sentence-transformers matplotlib pytest
-
-# 2. Run the experiment (mock mode - no API key needed)
-python scripts/run_experiment.py --mock
-
-# 3. Or test with your own text
-python scripts/run_experiment.py --mock --text "Your sentence here"
-
-# 4. Run tests
-pytest tests/ -v
+python -m pip install -r requirements.txt
 ```
+
+### Step 2: Choose a Mode and Run
+
+| Mode | Command | Real Translations? | API Key? | Best For |
+|------|---------|-------------------|----------|----------|
+| **Local** | `python scripts/run_experiment.py --local` | Yes (MarianMT) | No | Assignment submission |
+| **API** | `python scripts/run_experiment.py` | Yes (Claude) | Yes | Best quality |
+| **Mock** | `python scripts/run_experiment.py --mock` | No (fake) | No | Fast testing |
+| **Claude Code** | `/build-and-test-all` | Yes | No | Interactive |
+
+### Step 3: Run Tests (Optional)
+```bash
+python -m pytest tests/ -v
+```
+
+---
+
+## How to Run and Test - All Options Explained
+
+### Option 1: Local Models (RECOMMENDED)
+
+**Best for: Assignment submission, no API key needed**
+
+```bash
+python scripts/run_experiment.py --local
+```
+
+| Aspect | Details |
+|--------|---------|
+| Translation Engine | Helsinki-NLP MarianMT models |
+| Quality | Good (real neural machine translation) |
+| Speed | Medium (first run downloads ~900MB) |
+| Cost | Free |
+| Offline | Yes (after first download) |
+
+**What happens:**
+1. Downloads 3 models (~300MB each) on first run
+2. Translates using local neural networks
+3. No internet needed after download
+
+---
+
+### Option 2: Claude API
+
+**Best for: Highest quality translations**
+
+```bash
+# Windows
+set ANTHROPIC_API_KEY=your-key-here
+python scripts/run_experiment.py
+
+# macOS/Linux
+export ANTHROPIC_API_KEY=your-key-here
+python scripts/run_experiment.py
+```
+
+| Aspect | Details |
+|--------|---------|
+| Translation Engine | Claude AI (claude-sonnet) |
+| Quality | Excellent (best available) |
+| Speed | Fast |
+| Cost | Requires API credits |
+| Offline | No |
+
+---
+
+### Option 3: Mock Mode
+
+**Best for: Testing the pipeline quickly**
+
+```bash
+python scripts/run_experiment.py --mock
+```
+
+| Aspect | Details |
+|--------|---------|
+| Translation Engine | Word-by-word dictionary lookup |
+| Quality | Fake (not real translation) |
+| Speed | Very fast |
+| Cost | Free |
+| Offline | Yes |
+
+**Warning:** Mock translations are NOT real. Use only for testing the pipeline works.
+
+---
+
+### Option 4: Claude Code Agents (Interactive)
+
+**Best for: Learning, exploration, step-by-step execution**
+
+In Claude Code CLI, use these slash commands:
+
+```bash
+# Run entire workflow
+/build-and-test-all
+
+# Or step by step:
+/setup-project          # Install dependencies
+/run-tests              # Run all tests
+/run-full-experiment    # Run experiment
+/verify-results         # Check requirements met
+```
+
+| Aspect | Details |
+|--------|---------|
+| Translation Engine | Claude (via Claude Code) |
+| Quality | Excellent |
+| Speed | Interactive |
+| Cost | Free (uses Claude Code) |
+| Offline | No |
+
+---
+
+### Comparison Summary
+
+| Mode | Command | Real Translations? | API Key? | Quality | Speed | Cost |
+|------|---------|-------------------|----------|---------|-------|------|
+| **Local** | `--local` | Yes (MarianMT) | No | Good | Medium | Free |
+| **API** | (no flag) | Yes (Claude) | Yes | Excellent | Fast | Paid |
+| **Mock** | `--mock` | No (fake) | No | N/A | Very Fast | Free |
+| **Claude Code** | `/build-and-test-all` | Yes (Claude) | No | Excellent | Interactive | Free |
+
+### Which Should I Use?
+
+| Your Situation | Recommended Mode |
+|----------------|------------------|
+| Submitting assignment | `--local` |
+| No API key, need real translations | `--local` |
+| Have API key, want best quality | (no flag) |
+| Just testing if code works | `--mock` |
+| Want to learn how it works | Claude Code agents |
 
 ---
 
@@ -65,11 +196,16 @@ python -m venv venv
 .\venv\Scripts\activate
 
 # 4. Install required packages
-pip install sentence-transformers matplotlib pytest anthropic
+python -m pip install -r requirements.txt
+
+# Or install individually:
+python -m pip install sentence-transformers matplotlib pytest anthropic
 
 # 5. Verify installation
 python -c "from sentence_transformers import SentenceTransformer; print('OK')"
 ```
+
+> **Note:** On Windows, use `python -m pip` instead of just `pip` if you get "'pip' is not recognized" error.
 
 #### Windows Requirements
 - Python 3.8 or higher
@@ -142,8 +278,25 @@ Round-Trip-Translator/
 │       ├── word_order_conversion.md
 │       └── gender_pronoun_mapping.md
 │
+├── .claude/                     # Claude Code integration
+│   └── commands/               # Slash commands for Claude Code
+│       │
+│       │ # Build & Test Agents
+│       ├── setup-project.md    # /setup-project - Install dependencies
+│       ├── run-tests.md        # /run-tests - Run all unit tests
+│       ├── run-full-experiment.md  # /run-full-experiment - Run experiment
+│       ├── verify-results.md   # /verify-results - Check requirements
+│       ├── build-and-test-all.md   # /build-and-test-all - Full workflow
+│       │
+│       │ # Translation Agents
+│       ├── agent-en-fr.md      # /agent-en-fr - English to French
+│       ├── agent-fr-he.md      # /agent-fr-he - French to Hebrew
+│       ├── agent-he-en.md      # /agent-he-en - Hebrew to English
+│       └── run-pipeline.md     # /run-pipeline - Full translation pipeline
+│
 ├── scripts/                     # Python scripts
 │   ├── run_experiment.py       # Main experiment runner
+│   ├── agent_runner.py         # CLI agent runner (Claude API)
 │   ├── spelling_error_injector.py  # Spelling error injection
 │   └── embedding_similarity_local.py  # Vector similarity
 │
@@ -156,7 +309,9 @@ Round-Trip-Translator/
 
 ---
 
-## Running the Experiment
+## Implementation 1: Python Scripts
+
+This implementation runs the experiment automatically using Python scripts.
 
 ### Full Experiment (with Claude API)
 
@@ -192,17 +347,128 @@ python scripts/run_experiment.py --mock --text "Your custom sentence here with m
 
 | Option | Description |
 |--------|-------------|
-| `--mock` | Use mock translations (no API calls) |
+| `--local` | Use local MarianMT models (real translations, no API) |
+| `--mock` | Use mock translations (fake, for testing only) |
 | `--text "TEXT"` | Use custom text instead of default sentences |
 | `--sentences-only` | Display test sentences without running experiment |
 | `--api-key KEY` | Provide API key directly |
 | `--output-dir DIR` | Specify output directory |
+
+### Using the Agent Runner (Individual Translations)
+
+```bash
+# Run full pipeline (EN → FR → HE → EN)
+python scripts/agent_runner.py --pipeline --text "Your sentence here"
+
+# Run individual translation agents
+python scripts/agent_runner.py --agent en-fr --text "Hello world"
+python scripts/agent_runner.py --agent fr-he --text "Bonjour le monde"
+python scripts/agent_runner.py --agent he-en --text "שלום עולם"
+```
+
+### Claude Code Slash Commands
+
+If using Claude Code CLI, you can invoke agents directly:
+
+```
+/translate-en-fr Your English text here
+/translate-fr-he Votre texte français ici
+/translate-he-en הטקסט העברי שלך כאן
+/roundtrip-translate Full pipeline translation
+/check-quality Compare original and translated text
+```
 
 ### Output Files
 
 After running, the script generates:
 - `experiment_results_TIMESTAMP.json` - Full results data
 - `spelling_error_graph_TIMESTAMP.png` - Visualization graph
+
+---
+
+## Implementation 2: Claude Code Agents
+
+This implementation uses Claude Code slash commands for interactive translation. **No API key required** - it uses Claude Code directly.
+
+### Available Slash Commands
+
+#### Build & Test Agents
+| Command | Description |
+|---------|-------------|
+| `/setup-project` | Install dependencies and verify setup |
+| `/run-tests` | Run all 75 unit tests |
+| `/run-full-experiment` | Run the complete experiment |
+| `/verify-results` | Verify results meet assignment requirements |
+| `/build-and-test-all` | Run entire workflow (setup → test → experiment → verify) |
+
+#### Translation Agents
+| Command | Description |
+|---------|-------------|
+| `/agent-en-fr [text]` | Translate English to French |
+| `/agent-fr-he [text]` | Translate French to Hebrew |
+| `/agent-he-en [text]` | Translate Hebrew to English |
+| `/run-pipeline [text]` | Run full pipeline (EN → FR → HE → EN) |
+
+### Single Translation Example
+
+```bash
+# In Claude Code CLI:
+/agent-en-fr The beautiful sunset paints the sky with amazing golden colors
+```
+
+Output:
+```
+FRENCH: Le magnifique coucher de soleil peint le ciel avec d'incroyables couleurs dorées
+```
+
+### Full Pipeline Example
+
+```bash
+/run-pipeline The magnificent golden sunset painted the entire western sky with beautiful colors
+```
+
+Output:
+```
+=== ROUND-TRIP TRANSLATION RESULTS ===
+
+ORIGINAL INPUT:
+The magnificent golden sunset painted the entire western sky with beautiful colors
+
+STEP 1 - English to French:
+Le magnifique coucher de soleil doré a peint tout le ciel occidental avec de belles couleurs
+
+STEP 2 - French to Hebrew:
+השקיעה המוזהבת המרהיבה צבעה את כל השמיים המערביים בצבעים יפים
+
+STEP 3 - Hebrew to English:
+The magnificent golden sunset painted all the western skies in beautiful colors
+
+=== END RESULTS ===
+```
+
+### Running the Full Experiment
+
+```bash
+/run-experiment
+```
+
+This will:
+1. Take the test sentences
+2. Inject spelling errors at 0%, 10%, 25%, 50%
+3. Run each through the translation pipeline
+4. Calculate vector distances
+5. Display results table
+
+### When to Use Each Implementation
+
+| Use Case | Recommended |
+|----------|-------------|
+| **Assignment submission** | Python Scripts (`--local`) |
+| No API key, real translations | Python Scripts (`--local`) |
+| Fast pipeline testing | Python Scripts (`--mock`) |
+| Best quality translations | Python Scripts (with API key) |
+| Interactive exploration | Claude Code Agents |
+| Learning how agents work | Claude Code Agents |
 
 ---
 
@@ -279,26 +545,22 @@ The spelling error injector creates variants at different error rates:
 ### Run All Tests
 
 ```bash
-# Windows
 python -m pytest tests/ -v
-
-# macOS/Linux
-pytest tests/ -v
 ```
 
 ### Run Specific Test File
 
 ```bash
-pytest tests/test_spelling_error_injector.py -v
-pytest tests/test_embedding_similarity.py -v
-pytest tests/test_experiment_runner.py -v
+python -m pytest tests/test_spelling_error_injector.py -v
+python -m pytest tests/test_embedding_similarity.py -v
+python -m pytest tests/test_experiment_runner.py -v
 ```
 
 ### Run Tests with Coverage
 
 ```bash
-pip install pytest-cov
-pytest tests/ --cov=scripts --cov-report=html
+python -m pip install pytest-cov
+python -m pytest tests/ --cov=scripts --cov-report=html
 ```
 
 ### Test Categories
@@ -368,14 +630,20 @@ python scripts/spelling_error_injector.py
 
 ### Common Issues
 
+#### "'pip' is not recognized" (Windows)
+```bash
+# Use python -m pip instead of pip
+python -m pip install -r requirements.txt
+```
+
 #### "sentence-transformers not installed"
 ```bash
-pip install sentence-transformers
+python -m pip install sentence-transformers
 ```
 
 #### "matplotlib not installed"
 ```bash
-pip install matplotlib
+python -m pip install matplotlib
 ```
 
 #### "ANTHROPIC_API_KEY not set"
